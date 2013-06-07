@@ -11,7 +11,7 @@ class Twatter:
 	def frequency(self, keyword):
 		'''
 		str -> float
-		Returns the rate of appearance of keyword over 50 tweets in tweets/time format.
+		Returns the rate of appearance of keyword in up to 50 tweets in tweets/time format.
 		(There is a much better way to do this using datetime objects. Working on this.)
 		'''
 		
@@ -61,10 +61,11 @@ class Twatter:
 
 	def userlocation(self, user_id):
 		'''
-		int -> str
+		int -> dict
 		Scrapes the user's profile page for their location (uses numerical ID). Requires lxml and StringIO.
 		'''
 
+		locations = {}
 		url = "http://twitter.com/account/redirect_by_id?id=" + str(user_id)
 
 		try:
@@ -81,7 +82,11 @@ class Twatter:
 
 			decode_pre_result = pre_result.decode('string_escape')
 
-			print str(user_id) + ": " + decode_pre_result
+			#print str(user_id) + ": " + decode_pre_result
+			locations[str(user_id)] = decode_pre_result
 
 		except:
-			print str(user_id) + ": No location"
+			#print str(user_id) + ": No location"
+			locations[str(user_id)] = "No location"
+
+		return locations
