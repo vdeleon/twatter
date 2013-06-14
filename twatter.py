@@ -61,8 +61,8 @@ class Twatter:
 
 	def mutualfollowers(self, user1, user2):
 		mutuals = []
-		user1_followers = followers(user1)
-		user2_followers = followers(user2)
+		user1_followers = self.followers(user1)
+		user2_followers = self.followers(user2)
 
 		for f in user1_followers:
 			if f in user2_followers:
