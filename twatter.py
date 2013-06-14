@@ -59,6 +59,18 @@ class Twatter:
 		return followers
 
 
+	def mutualfollowers(self, user1, user2):
+		mutuals = []
+		user1_followers = followers(user1)
+		user2_followers = followers(user2)
+
+		for f in user1_followers:
+			if f in user2_followers:
+				mutuals = mutuals + f
+
+		return mutuals
+
+
 	def userlocation(self, user_id):
 		'''
 		int -> dict
@@ -77,10 +89,7 @@ class Twatter:
 
 			xpath = '/html/body/div/div[3]/div/div[2]/div/div[2]/p[2]/span/text()'
 
-			pre_result1 = ' '.join(tree.xpath(xpath))
-			pre_result = pre_result1.strip()
-
-			decode_pre_result = pre_result.decode('string_escape')
+			decode_pre_result = ' '.join(tree.xpath(xpath)).strip().decode('string_escape')
 
 			#print str(user_id) + ": " + decode_pre_result
 			locations[str(user_id)] = decode_pre_result
